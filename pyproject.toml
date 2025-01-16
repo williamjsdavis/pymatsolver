@@ -16,6 +16,7 @@ keywords = [
 dependencies = [
     "numpy>=1.21",
     "scipy>=1.8",
+    "cupy>=13",
     "packaging",
 ]
 classifiers = [
