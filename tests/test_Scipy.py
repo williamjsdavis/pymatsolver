@@ -1,8 +1,12 @@
 from pymatsolver import Solver, Diagonal, SolverCG, SolverLU
-import scipy.sparse as sp
-from scipy.sparse.linalg import aslinearoperator
-import numpy as np
-import numpy.testing as npt
+# import scipy.sparse as sp
+# from scipy.sparse.linalg import aslinearoperator
+# import numpy as np
+# import numpy.testing as npt
+import cupyx.scipy.sparse as sp
+from cupyx.scipy.sparse.linalg import aslinearoperator
+import cupy as np
+import cupy.testing as npt
 import pytest
 
 

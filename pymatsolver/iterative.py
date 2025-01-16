@@ -2,7 +2,8 @@ import warnings
 import numpy as np
 import scipy
 import scipy.sparse as sp
-from scipy.sparse.linalg import bicgstab, cg, aslinearoperator
+from scipy.sparse.linalg import bicgstab, aslinearoperator
+from cupyx.scipy.sparse.linalg import cg
 from packaging.version import Version
 from .wrappers import WrapIterative
 from .solvers import Base

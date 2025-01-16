@@ -1,6 +1,9 @@
-import numpy as np
-import numpy.testing as npt
-import scipy.sparse as sp
+# import numpy as np
+# import numpy.testing as npt
+# import scipy.sparse as sp
+import cupy as np
+import cupy.testing as npt
+import cupyx.scipy.sparse as sp
 import pymatsolver
 import pytest
 
@@ -41,7 +44,7 @@ def test_triangle_errors():
 
 def test_mat_convert():
     Ainv = pymatsolver.Forward(sp.eye(5, format='coo'))
-    x = np.arange(5)
+    x = np.arange(5, dtype=float)
     npt.assert_allclose(Ainv @ x, x)
 
 

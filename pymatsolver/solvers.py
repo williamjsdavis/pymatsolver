@@ -1,7 +1,10 @@
-import numpy as np
+# import numpy as np
+import cupy as np
 import warnings
-import scipy.sparse as sp
-from scipy.sparse.linalg import spsolve_triangular
+# import scipy.sparse as sp
+# from scipy.sparse.linalg import spsolve_triangular
+import cupyx.scipy.sparse as sp
+from cupyx.scipy.sparse.linalg import spsolve_triangular
 from scipy.linalg import issymmetric, ishermitian
 from abc import ABC, abstractmethod
 import copy
@@ -76,9 +79,9 @@ class Base(ABC):
         # do some symmetry checks that likely speed up the defualt solve operation
         if is_symmetric is None:
             if sp.issparse(A):
-                is_symmetric = (A.T != A).nnz == 0
+                is_symmetric = (A.T.get() != A.get()).nnz == 0
             elif isinstance(A, np.ndarray):
-                is_symmetric = issymmetric(A)
+                is_symmetric = issymmetric(A.get())
             else:
                 is_symmetric = False
         self.is_symmetric = is_symmetric
@@ -87,9 +90,9 @@ class Base(ABC):
                 is_hermitian = self.is_symmetric
             else:
                 if sp.issparse(A):
-                    is_hermitian = (A.T.conjugate() != A).nnz == 0
+                    is_hermitian = (A.T.conjugate().get() != A.get()).nnz == 0
                 elif isinstance(A, np.ndarray):
-                    is_hermitian = ishermitian(A)
+                    is_hermitian = ishermitian(A.get())
                 else:
                     is_hermitian = False
 

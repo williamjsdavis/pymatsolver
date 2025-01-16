@@ -1,4 +1,5 @@
-from scipy.sparse.linalg import spsolve, splu
+# from scipy.sparse.linalg import spsolve, splu
+from cupyx.scipy.sparse.linalg import spsolve, splu
 
 from ..wrappers import WrapDirect
 from .pardiso import Pardiso

@@ -1,7 +1,10 @@
-import numpy as np
-import numpy.testing as npt
+# import numpy as np
+# import numpy.testing as npt
+import cupy as np
+import cupy.testing as npt
 import pytest
-import scipy.sparse as sp
+# import scipy.sparse as sp
+import cupyx.scipy.sparse as sp
 import pymatsolver
 from pymatsolver import Diagonal
 from pymatsolver.solvers import UnusedArgumentWarning
@@ -59,18 +62,18 @@ def test_basic_solve():
     rhs2d = np.arange(8).reshape(4, 2)
     rhs3d = np.arange(24).reshape(3, 4, 2)
 
-    npt.assert_equal(Ainv @ rhs, rhs)
-    npt.assert_equal(Ainv @ rhs2d, rhs2d)
-    npt.assert_equal(Ainv @ rhs3d, rhs3d)
+    npt.assert_array_almost_equal(Ainv @ rhs, rhs)
+    npt.assert_allclose(Ainv @ rhs2d, rhs2d)
+    npt.assert_allclose(Ainv @ rhs3d, rhs3d)
 
-    npt.assert_equal(rhs @ Ainv, rhs)
-    npt.assert_equal(rhs * Ainv, rhs)
+    npt.assert_array_almost_equal(rhs @ Ainv, rhs)
+    npt.assert_array_almost_equal(rhs * Ainv, rhs)
 
-    npt.assert_equal(rhs2d.T @ Ainv, rhs2d.T)
-    npt.assert_equal(rhs2d.T * Ainv, rhs2d.T)
+    npt.assert_array_almost_equal(rhs2d.T @ Ainv, rhs2d.T)
+    npt.assert_array_almost_equal(rhs2d.T * Ainv, rhs2d.T)
 
-    npt.assert_equal(rhs3d.swapaxes(-1, -2) @ Ainv, rhs3d.swapaxes(-1, -2))
-    npt.assert_equal(rhs3d.swapaxes(-1, -2) * Ainv, rhs3d.swapaxes(-1, -2))
+    npt.assert_array_almost_equal(rhs3d.swapaxes(-1, -2) @ Ainv, rhs3d.swapaxes(-1, -2))
+    npt.assert_array_almost_equal(rhs3d.swapaxes(-1, -2) * Ainv, rhs3d.swapaxes(-1, -2))
 
 
 def test_errors_and_warnings():

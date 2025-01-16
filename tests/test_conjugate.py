@@ -1,8 +1,11 @@
 import pytest
 import pymatsolver
-import numpy as np
-import scipy.sparse as sp
-import numpy.testing as npt
+# import numpy as np
+# import scipy.sparse as sp
+# import numpy.testing as npt
+import cupy as np
+import cupyx.scipy.sparse as sp
+import cupy.testing as npt
 
 
 @pytest.mark.parametrize('solver_class', [pymatsolver.Solver, pymatsolver.SolverLU, pymatsolver.Pardiso, pymatsolver.Mumps])
